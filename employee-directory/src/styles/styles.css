@@ -32,3 +32,11 @@ transition:transform 0.2s;
 .card:hover{
 transform:scale(1.03);
 }
+input{
+width:100%;
+padding:10px;
+margin-bottom:20px;
+border-radius:6px;
+border:1px solid #ccc;
+font-size:16px;
+}

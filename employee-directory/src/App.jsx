@@ -40,7 +40,10 @@ function App() {
 
   if (loading) return <p>Loading employees...</p>;
   if (error) return <p>Error: {error}</p>;
-
+const filteredEmployees = employees.filter((employee) =>
+  employee.name.toLowerCase().includes(search.toLowerCase()) ||
+  employee.email.toLowerCase().includes(search.toLowerCase())
+);
   return (
     <div className="container">
       <h1>Employee Directory</h1>
