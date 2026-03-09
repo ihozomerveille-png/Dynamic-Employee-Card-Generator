@@ -56,5 +56,5 @@ function App() {
     </div>
   );
 }
-
+const [search, setSearch] = useState("");
 export default App;
