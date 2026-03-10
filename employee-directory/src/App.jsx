@@ -11,8 +11,12 @@ function App() {
   useEffect(() => {
 
     const fetchEmployees = async () => {
+
       try {
-        const response = await fetch("https://jsonplaceholder.typicode.com/users");
+
+        const response = await fetch(
+          "https://jsonplaceholder.typicode.com/users"
+        );
 
         if (!response.ok) {
           throw new Error("Failed to fetch employees");
@@ -24,9 +28,12 @@ function App() {
         setLoading(false);
 
       } catch (err) {
+
         setError(err.message);
         setLoading(false);
+
       }
+
     };
 
     fetchEmployees();
@@ -39,7 +46,7 @@ function App() {
   );
 
   if (loading) {
-    return <h2 style={{textAlign:"center"}}>Loading employees...</h2>;
+    return <h2>Loading employees...</h2>;
   }
 
   if (error) {
@@ -47,19 +54,31 @@ function App() {
   }
 
   return (
-    <div className="container">
-
+    <div style={{ padding: "20px", fontFamily: "Arial" }}>
       <h1>Employee Directory</h1>
 
       <input
         type="text"
-        placeholder="Search employee by name or email..."
+        placeholder="Search by name or email"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        className="search"
+        style={{
+          padding: "10px",
+          width: "100%",
+          maxWidth: "400px",
+          marginBottom: "20px",
+          borderRadius: "6px",
+          border: "1px solid #ccc"
+        }}
       />
 
-      <div className="cards">
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+          gap: "20px"
+        }}
+      >
 
         {filteredEmployees.map((employee) => (
           <EmployeeCard
@@ -69,7 +88,6 @@ function App() {
         ))}
 
       </div>
-
     </div>
   );
 }

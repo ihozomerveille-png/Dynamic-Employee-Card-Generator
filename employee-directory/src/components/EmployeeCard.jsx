@@ -3,8 +3,15 @@ function EmployeeCard({ employee }) {
   const { id, name, email, phone, website, company } = employee;
 
   return (
-    <div className="card">
-
+    <div
+      style={{
+        border: "1px solid #ddd",
+        padding: "20px",
+        borderRadius: "8px",
+        background: "white",
+        boxShadow: "0 2px 6px rgba(0,0,0,0.1)"
+      }}
+    >
       <h3>{name}</h3>
 
       <p><strong>ID:</strong> {id}</p>
