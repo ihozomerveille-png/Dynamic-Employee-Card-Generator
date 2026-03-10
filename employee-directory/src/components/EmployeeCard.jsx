@@ -1,5 +1,9 @@
 function EmployeeCard({ employee }) {
 
+  if (!employee) {
+    return null;
+  }
+
   const { id, name, email, phone, website, company } = employee;
 
   return (
@@ -18,7 +22,7 @@ function EmployeeCard({ employee }) {
       <p><strong>Email:</strong> {email}</p>
       <p><strong>Phone:</strong> {phone}</p>
       <p><strong>Website:</strong> {website}</p>
-      <p><strong>Company:</strong> {company.name}</p>
+      <p><strong>Company:</strong> {company?.name}</p>
 
     </div>
   );
