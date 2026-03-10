@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import EmployeeCard from "./components/EmployeeCard";
 
 function App() {
 
@@ -8,12 +9,13 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Fetch employee data when the page loads
+  // Fetch employee data from API
   useEffect(() => {
 
     const fetchEmployees = async () => {
 
       try {
+
         const response = await fetch(
           "https://jsonplaceholder.typicode.com/users"
         );
@@ -28,8 +30,10 @@ function App() {
         setLoading(false);
 
       } catch (err) {
+
         setError(err.message);
         setLoading(false);
+
       }
 
     };
@@ -38,18 +42,16 @@ function App() {
 
   }, []);
 
-  // Filter employees based on search input
+  // Search filtering
   const filteredEmployees = employees.filter((employee) =>
     employee.name.toLowerCase().includes(search.toLowerCase()) ||
     employee.email.toLowerCase().includes(search.toLowerCase())
   );
 
-  // Loading state
   if (loading) {
     return <h2>Loading employees...</h2>;
   }
 
-  // Error state
   if (error) {
     return <h2>Error: {error}</h2>;
   }
@@ -61,7 +63,7 @@ function App() {
       {/* Search bar */}
       <input
         type="text"
-        placeholder="Search by name or email..."
+        placeholder="Search by name or email"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
         style={{
@@ -74,7 +76,7 @@ function App() {
         }}
       />
 
-      {/* Employee cards */}
+      {/* Cards container */}
       <div
         style={{
           display: "grid",
@@ -82,33 +84,14 @@ function App() {
           gap: "20px"
         }}
       >
-        {filteredEmployees.map((employee) => {
 
-          const { id, name, email, phone, website, company } = employee;
+        {filteredEmployees.map((employee) => (
+          <EmployeeCard
+            key={employee.id}
+            employee={employee}
+          />
+        ))}
 
-          return (
-            <div
-              key={id}
-              style={{
-                border: "1px solid #ddd",
-                padding: "20px",
-                borderRadius: "8px",
-                boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
-                background: "white"
-              }}
-            >
-              <h3>{name}</h3>
-
-              <p><strong>ID:</strong> {id}</p>
-              <p><strong>Email:</strong> {email}</p>
-              <p><strong>Phone:</strong> {phone}</p>
-              <p><strong>Website:</strong> {website}</p>
-              <p><strong>Company:</strong> {company.name}</p>
-
-            </div>
-          );
-
-        })}
       </div>
     </div>
   );
